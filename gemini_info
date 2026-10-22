@@ -1,0 +1,53 @@
+Para montar la demo funcional en las horas que quedan y cumplir con el requisito estricto de **Data at the Core** del reto de Accel y Aiven, necesitamos exactamente tres conjuntos de datos:
+
+---
+
+### 1. Señales EEG Reales (El stream sensorial)
+
+Necesitamos trazas bioeléctricas preprocesadas para simular el streaming neural en directo (no inventar datos sintéticos aleatorios, pues los jueces técnicos lo notan de inmediato):
+
+* **Dataset de texto/lenguaje (EEG-to-Text):**
+* **ZuCo 2.0 (Zurich Cognitive Language Processing Corpus):** Disponible abiertamente en Hugging Face o archivos `.mat` / `.parquet`. Contiene lecturas de 128 canales de EEG sincronizadas palabra por palabra con oraciones completas en inglés.
+* **Alternativa para tecleo discreto:** Cualquier matriz pública de **P300 Speller** o **Steady-State Visual Evoked Potentials (SSVEP)** (ej. *BCI Competition IV* dataset IIa), donde se registran los eventos de selección de letras.
+
+
+* **Canales mínimos requeridos:**
+* Canales frontales **$F_3$** y **$F_4$** (imprescindibles para calcular la Asimetría Frontal Alfa / Valencia).
+* Canales centrales/parietales **$C_z$**, **$P_z$**, **$O_z$** (para decodificación de intención motora/tecleo).
+
+
+
+---
+
+### 2. Memoria del Usuario y Contexto Conversacional (Capa Aiven)
+
+Para que el motor **SpeakFaster** no sea un simple prompt y demuestre valor en la base de datos de Aiven:
+
+* **Historial de estilo y vocabulario del paciente (PostgreSQL en Aiven):**
+* Tabla con frases habituales del usuario, nombres de familiares, rutinas médicas y preferencias de vocabulario.
+* Embeddings de contexto previo (usando `pgvector`) para que el modelo desambigüe abreviaciones en función del contexto (por ejemplo, saber que *"m d"* significa *"my doctor"* si está en contexto médico o *"my dinner"* en contexto doméstico).
+
+
+* **Buffer de eventos temporales (ClickHouse o Valkey en Aiven):**
+* Registro de streaming con timestamps de las bandas de potencia ($\alpha, \beta, \theta$) para trazar el histórico emocional del paciente a lo largo del día.
+
+
+
+
+
+---
+
+### 3. Muestra de Audio de Referencia (Para clonación en ElevenLabs)
+
+* Un clip de audio limpio de **30 a 60 segundos** en formato WAV o MP3 con la "voz original del paciente antes de perderla" (puede ser una grabación propia en inglés o francés).
+* Se sube a la API de Instant Voice Cloning de ElevenLabs para obtener el `voice_id` sobre el que se inyectará el texto final con las directivas afectivas (`[warmly]`, `[whispering]`).
+
+---
+
+### Resumen de los archivos que debes tener a mano ya:
+
+1. `eeg_sample_stream.parquet` (o un extracto del dataset ZuCo con canales $F_3, F_4$ y etiquetas de texto asociadas).
+2. `user_context.sql` (15-20 filas con el perfil, contactos y frases frecuentes para cargar en Aiven PostgreSQL).
+
+
+3. `voice_sample.mp3` (la voz objetivo para la síntesis de audio).
