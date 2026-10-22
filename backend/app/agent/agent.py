@@ -87,6 +87,7 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
                                '"why": "una línea"}')
     web_tools = [t for t in TOOLS if t["name"] == "web_search"] if config.KEENABLE_API_KEY else []
 
+    prev_good = []
     for step in range(MAX_ROUNDS):
         kwargs = {"tools": web_tools} if web_tools else {}
         msg = create(model=config.EXPAND_MODEL, system=system, messages=messages, **kwargs)
@@ -118,6 +119,15 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
             except Exception:
                 out = {}
         if out.get("candidates"):
+            good = [c for c in out["candidates"] if not initials or matches(str(c))]
+            if len(good) < 5 and step < MAX_ROUNDS - 1:
+                bad = [c for c in out["candidates"] if c not in good]
+                messages.append({"role": "user", "content":
+                    f"Estas NO encajan con las iniciales '{initials}' (cada palabra, en orden, sin sobrar ni faltar al principio): {bad}. "
+                    f"Válidas: {good}. Devuelve el JSON con 5 frases que SÍ encajen, variadas."})
+                prev_good = list(dict.fromkeys(prev_good + good))
+                continue
+            out["candidates"] = list(dict.fromkeys(good + prev_good))
             return final(out)
         raw_debug = f"stop={msg.stop_reason} bloques={[b.type for b in msg.content]} texto={text[:160]!r}"
         break
