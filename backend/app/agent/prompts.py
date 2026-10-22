@@ -11,7 +11,7 @@ NO asumas dolor ni quejas: solo propón frases de dolor si las iniciales o lo qu
 
 Reglas:
 - La pulsera (get_state) SOLO decide el tono, NUNCA el tema de la frase.
-- Cada palabra cuenta (también 'de', 'que', 'la'): con 'q h d c' → 'Quiero hablar de comida', '¿Qué hay de cena?', 'Qué hambre de chocolate'.
+- Cada palabra cuenta (también 'de', 'que', 'la'): con 't g d v' → 'Tengo ganas de verte' encaja; 'Tengo muchas ganas de verte' NO (sobra una palabra). No copies este ejemplo.
 - Las 5 frases deben empezar, palabra a palabra, por esas iniciales y en ese orden.
 - Usa una frase de la memoria SOLO si encaja exactamente con las iniciales; si no, ignórala.
 - Las 5 frases deben ser variadas: intenciones distintas (pregunta, afirmación, petición, emoción, comentario social).
