@@ -29,9 +29,19 @@ def el():
     return _el
 
 
+def translate(text: str, language: str) -> str:
+    """Traduce la frase elegida manteniendo el registro (primera persona, natural)."""
+    import anthropic
+    names = {"fr": "francés", "en": "inglés"}
+    msg = anthropic.Anthropic().messages.create(
+        model=config.AGENT_MODEL, max_tokens=200,
+        messages=[{"role": "user", "content": f"Traduce al {names.get(language, language)} esta frase, natural y en primera persona. "
+                                              f"Responde solo con la traducción.\n\n{text}"}])
+    return msg.content[0].text.strip()
+
+
 def speak(user_id: str, text: str, tone: str, language: str) -> dict:
     """Devuelve {audio_url | audio_b64, cached, latency_ms}.
-    TODO(Pedro): si language != idioma del texto, traducir antes (una llamada corta a Claude) → la misma frase en francés.
     TODO(Pedro): subir el MP3 a Supabase Storage (services/storage.py) y devolver la URL; si no hay Supabase, base64.
     """
     t0 = time.perf_counter()
@@ -39,6 +49,8 @@ def speak(user_id: str, text: str, tone: str, language: str) -> dict:
     hit = valkey.cache_get("audio", h)
     if hit:
         return {**hit, "cached": True, "latency_ms": int((time.perf_counter() - t0) * 1000)}
+    if language != "es":
+        text = translate(text, language)
     audio = b"".join(el().text_to_speech.convert(
         voice_id=config.VOICE_ID, text=f"{TONE_TAGS.get(tone, '')} {text}".strip(),
         model_id=config.TTS_MODEL, output_format="mp3_44100_128"))

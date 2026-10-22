@@ -1,0 +1,6 @@
+.venv
+.env
+WESAD
+**/__pycache__
+benchmark/results
+Pre-Build Info

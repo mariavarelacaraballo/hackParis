@@ -19,5 +19,9 @@ def choice(body: ChoiceIn):
     state = valkey.get_state(body.user_id)
     result = learn_from_choice(body.user_id, final, session.get("interlocutor"), state.get("activation"),
                                session.get("last_utterance"), edited=bool(body.edited_text))
-    # TODO(Pedro): postgres.save_choice(body.model_dump()) para métricas de uso real.
+    try:
+        from ..db import postgres
+        postgres.save_choice(body.model_dump())
+    except Exception:
+        pass
     return {"ok": True, "learned": f"Frase {result} en memoria (con {session.get('interlocutor', 'contexto actual')})"}

@@ -28,12 +28,22 @@ def expand(body: ExpandIn):
         context.setdefault("time", time.strftime("%H:%M"))
         state = valkey.get_state(body.user_id)
 
-    # TODO(Pedro): caché en Valkey por (user, input, interlocutor) — salvo si viene 'memories' (benchmark).
+    h = valkey.key_hash(body.user_id, body.mode, body.input, context.get("interlocutor"), context.get("last_utterance"))
+    if body.memories is None:
+        hit = valkey.cache_get("expand", h)
+        if hit:
+            return {**hit, "latency_ms": int((time.perf_counter() - t0) * 1000), "cached": True}
+    try:
+        profile = postgres.profile_text(postgres.get_profile(body.user_id))
+    except Exception:
+        profile = "Lucas, 58 años, ELA"
     out = agent_expand(body.user_id, body.mode, body.input, context, state,
-                       profile="Lucas, 58 años, ELA",  # TODO: postgres.get_profile(body.user_id)
+                       profile=profile,
                        fixed_memories=body.memories,
                        log=None if body.memories is not None else
                        (lambda step, tool, args, summary, ms: postgres.log_step(body.user_id, "", step, tool, args, summary, ms)))
+    if body.memories is None and out["candidates"]:
+        valkey.cache_set("expand", h, out, ttl=3600)
     try:
         clickhouse.log_metric(body.user_id, "expand", out["latency_ms"], out["cost_eur"], 0)
     except Exception:

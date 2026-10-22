@@ -20,7 +20,7 @@ TOOLS = [
                 "interlocutor": {"type": "string", "description": "Persona presente, si se conoce"},
                 "k": {"type": "integer", "default": 8},
             },
-            "required": ["initials"],
+            "required": [],
         },
     },
     {
@@ -71,7 +71,9 @@ def run_tool(name: str, args: dict, ctx: dict) -> str:
             return json.dumps(ctx["fixed_memories"], ensure_ascii=False)
         from ..db import postgres
         from .memory import embed
-        rows = postgres.search_memories(ctx["user_id"], embed(args.get("query") or args["initials"]),
+        c = ctx.get("context") or {}
+        q = args.get("query") or f"{args.get('interlocutor') or c.get('interlocutor', '')}: {c.get('last_utterance', '')}"
+        rows = postgres.search_memories(ctx["user_id"], embed(q),
                                         initials=args.get("initials"), interlocutor=args.get("interlocutor"),
                                         k=args.get("k", 8))
         return json.dumps([{"phrase": r["phrase"], "interlocutor": r["interlocutor"], "times_used": r["times_used"]}

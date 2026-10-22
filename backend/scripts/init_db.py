@@ -11,6 +11,7 @@ from backend.app.db import clickhouse, postgres  # noqa: E402
 
 with postgres.conn().cursor() as cur:
     cur.execute((ROOT / "db/postgres.sql").read_text())
+postgres.reset()  # reconectar para registrar el tipo vector
 print("PostgreSQL OK")
 
 for stmt in (ROOT / "db/clickhouse.sql").read_text().split(";"):

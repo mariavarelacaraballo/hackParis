@@ -12,8 +12,19 @@ def conn():
     global _conn
     if _conn is None or _conn.closed:
         _conn = psycopg.connect(config.PG_URI, autocommit=True)
-        register_vector(_conn)
+        try:
+            register_vector(_conn)  # falla si la extensión aún no existe (antes de init_db)
+        except Exception:
+            pass
     return _conn
+
+
+def reset():
+    """Cierra la conexión (init_db la usa tras crear la extensión vector)."""
+    global _conn
+    if _conn is not None:
+        _conn.close()
+    _conn = None
 
 
 def search_memories(user_id: str, query_embedding, initials: str | None = None,
@@ -63,15 +74,38 @@ def log_step(user_id, request_id, step, tool, args, result_summary, ms):
 
 
 def save_choice(c: dict):
-    """TODO(Pedro): INSERT en choices (rank = posición de chosen en candidates, o NULL si editó)."""
-    raise NotImplementedError
+    """Guarda cada elección: rank = posición de la elegida (1-5) o NULL si la editó."""
+    import json
+    rank = None if c.get("edited_text") else (c["candidates"].index(c["chosen"]) + 1 if c["chosen"] in c["candidates"] else None)
+    with conn().cursor() as cur:
+        cur.execute("INSERT INTO choices (user_id, input, candidates, chosen, edited_text, rank, tone, tone_was_changed) "
+                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (c["user_id"], json.dumps(c["input"], ensure_ascii=False), json.dumps(c["candidates"], ensure_ascii=False),
+                     c["chosen"], c.get("edited_text"), rank, c.get("tone"), c.get("tone_was_changed", False)))
 
 
-def get_profile(user_id):
-    """TODO(Pedro): users + contacts + routines → dict para el prompt del agente."""
-    raise NotImplementedError
+def get_profile(user_id) -> dict:
+    """users + contacts + routines → dict para el prompt del agente y para sugerir interlocutor."""
+    with conn().cursor() as cur:
+        cur.execute("SELECT name, profile FROM users WHERE id = %s", (user_id,))
+        row = cur.fetchone()
+        cur.execute("SELECT name, relation FROM contacts WHERE user_id = %s", (user_id,))
+        contacts = dict(cur.fetchall())
+        cur.execute("SELECT to_char(at_time, 'HH24:MI'), description FROM routines WHERE user_id = %s ORDER BY at_time", (user_id,))
+        routines = [f"{t} {d}" for t, d in cur.fetchall()]
+    name, profile = (row or ("el usuario", {}))
+    return {"name": name, "profile": profile or {}, "contacts": contacts, "routines": routines}
+
+
+def profile_text(p: dict) -> str:
+    pr = p.get("profile", {})
+    return (f"{p['name']}, {pr.get('age', '')} años, {pr.get('condition', '')}. "
+            f"Contactos: {'; '.join(f'{k} ({v})' for k, v in p['contacts'].items())}. "
+            f"Rutinas: {'; '.join(p['routines'])}. Intereses: {', '.join(pr.get('interests', []))}.")
 
 
 def recent_trace(user_id, limit=20):
-    """TODO(Pedro): SELECT de agent_log para GET /trace."""
-    raise NotImplementedError
+    with conn().cursor() as cur:
+        cur.execute("SELECT tool, args, result_summary, ms, created_at FROM agent_log WHERE user_id = %s "
+                    "ORDER BY id DESC LIMIT %s", (user_id, limit))
+        return [{"tool": t, "args": a, "result_summary": r, "ms": m, "at": str(c)} for t, a, r, m, c in cur.fetchall()]
