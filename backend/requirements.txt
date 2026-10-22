@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+anthropic
+openai
+elevenlabs
+psycopg[binary]
+clickhouse-connect
+redis
+supabase
+sse-starlette
+httpx
