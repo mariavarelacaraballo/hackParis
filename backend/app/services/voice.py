@@ -49,8 +49,7 @@ def speak(user_id: str, text: str, tone: str, language: str) -> dict:
     hit = valkey.cache_get("audio", h)
     if hit:
         return {**hit, "cached": True, "latency_ms": int((time.perf_counter() - t0) * 1000)}
-    if language != "es":
-        text = translate(text, language)
+    # Las frases ya vienen en el idioma que se habla (inglés): no se traduce.
     try:
         audio = b"".join(el().text_to_speech.convert(
             voice_id=config.VOICE_ID, text=f"{TONE_TAGS.get(tone, '')} {text}".strip(),

@@ -57,13 +57,13 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
         if log:
             log(step, tool, args, result[:120], ms)
         prefetched.append(f"[{tool}] {result}")
-    messages = [{"role": "user", "content": f"Modo: {mode}. Entrada del usuario: {shown}\n\n"
-                 "Datos ya consultados para ti (no repitas estas herramientas salvo que necesites otra búsqueda distinta):\n"
+    messages = [{"role": "user", "content": f"Mode: {mode}. User input (initials): {shown}\n\n"
+                 "Data already fetched for you (do not repeat these tools):\n"
                  + "\n".join(prefetched)
-                 + "\n\nSi la frase trata de algo actual, usa web_search; si no, llama directamente a propose_phrases."}]
+                 + "\n\nIf it is about current events use web_search; otherwise answer directly."}]
     system = SYSTEM.format(name=profile.split()[0] if profile else "el usuario", profile=profile)
     def matches(phrase):
-        words = re.findall(r"[\wáéíóúñü]+", phrase.lower())
+        words = re.findall(r"[\wáéíóúñü']+", phrase.lower())
         want = initials.split()
         return len(words) >= len(want) and all(w.startswith(i) for w, i in zip(words, want))
 
@@ -82,9 +82,9 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
         }
 
     # Respuesta en JSON: más fiable y rápido que forzar la herramienta final (este modelo no admite tool_choice).
-    messages[0]["content"] += ("\n\nResponde SOLO con un objeto JSON, sin texto alrededor: "
-                               '{"candidates": [5 frases], "suggested_tone": "neutro|tranquilo|contento|cansado|molesto|urgente", '
-                               '"why": "una línea"}')
+    messages[0]["content"] += ("\n\nReply ONLY with a JSON object, no text around it, sentences in ENGLISH: "
+                               '{"candidates": [5 sentences], "suggested_tone": "neutro|tranquilo|contento|cansado|molesto|urgente", '
+                               '"why": "one line"}')
     web_tools = [t for t in TOOLS if t["name"] == "web_search"] if config.KEENABLE_API_KEY else []
 
     prev_good = []
@@ -123,8 +123,8 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
             if len(good) < 5 and step < MAX_ROUNDS - 1:
                 bad = [c for c in out["candidates"] if c not in good]
                 messages.append({"role": "user", "content":
-                    f"Estas NO encajan con las iniciales '{initials}' (cada palabra, en orden, sin sobrar ni faltar al principio): {bad}. "
-                    f"Válidas: {good}. Devuelve el JSON con 5 frases que SÍ encajen, variadas."})
+                    f"These do NOT fit the initials '{initials}' (each word, in order, no extra words at the start): {bad}. "
+                    f"Valid: {good}. Return the JSON with 5 varied English sentences that DO fit."})
                 prev_good = list(dict.fromkeys(prev_good + good))
                 continue
             out["candidates"] = list(dict.fromkeys(good + prev_good))

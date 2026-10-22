@@ -36,7 +36,7 @@ def set_context(body: ContextIn):
     valkey.add_turn(body.user_id, who or "otra persona", body.last_utterance)
     context = {**valkey.get_session(body.user_id), "time": time.strftime("%H:%M"),
                "conversation": valkey.get_history(body.user_id)}
-    out = agent_expand(body.user_id, "context", "(sin iniciales: propón lo más probable ahora)", context,
+    out = agent_expand(body.user_id, "context", "(no initials: propose the most likely sentences right now, in English)", context,
                        valkey.get_state(body.user_id), profile=postgres.profile_text(profile),
                        log=lambda step, tool, args, summary, ms: postgres.log_step(body.user_id, "", step, tool, args, summary, ms))
     return {"ok": True, "suggested_interlocutor": who, "suggestions": out["candidates"][:3],
