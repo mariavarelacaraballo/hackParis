@@ -1,0 +1,28 @@
+{
+  "user_id": "lucas",
+  "name": "Lucas",
+  "age": 58,
+  "condition": "ELA, escribe con la mirada",
+  "language": "es",
+  "contacts": {
+    "Ana": "hija, viene por las tardes",
+    "Javier": "hijo, llama los domingos",
+    "Claire": "enfermera de noche, habla francés",
+    "Marta": "logopeda, martes y jueves por la mañana",
+    "Rosa": "mujer de Lucas"
+  },
+  "routines": [
+    "08:00 desayuno y medicación",
+    "11:00 fisioterapia",
+    "14:00 comida",
+    "18:00 visita de Ana",
+    "21:00 cena",
+    "23:00 Claire hace la ronda de noche"
+  ],
+  "interests": [
+    "Real Betis",
+    "flamenco",
+    "nietos Pablo y Lola",
+    "pesca"
+  ]
+}

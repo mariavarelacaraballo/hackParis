@@ -1,72 +1,70 @@
--- Aiven PostgreSQL: memoria del agente
-CREATE TABLE IF NOT EXISTS residents (
-  id            TEXT PRIMARY KEY,          -- = sujeto de WESAD (S2, S3…)
-  name          TEXT NOT NULL,
-  age           INT,
-  room          TEXT,
-  language      TEXT DEFAULT 'es',
-  hr_baseline   REAL,
-  eda_baseline  REAL,
-  thresholds    JSONB DEFAULT '{}'::jsonb  -- lo que el agente ajusta con el feedback
+-- Aiven PostgreSQL: memoria del usuario. Ejecutar con backend/scripts/init_db.py
+-- Requiere la extensión pgvector (en Aiven: disponible; si falla CREATE EXTENSION, avisar a mentores de Aiven).
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS users (
+  id          TEXT PRIMARY KEY,           -- 'lucas'
+  name        TEXT NOT NULL,
+  language    TEXT DEFAULT 'es',
+  voice_id    TEXT,                       -- ElevenLabs
+  profile     JSONB DEFAULT '{}'::jsonb   -- condición, intereses...
 );
 
-CREATE TABLE IF NOT EXISTS schedule (        -- contexto: fisio, comidas, medicación
-  id           SERIAL PRIMARY KEY,
-  resident_id  TEXT REFERENCES residents(id),
-  activity     TEXT NOT NULL,
-  start_time   TIME NOT NULL,
-  end_time     TIME NOT NULL
+CREATE TABLE IF NOT EXISTS contacts (
+  user_id     TEXT REFERENCES users(id),
+  name        TEXT,
+  relation    TEXT,                       -- 'hija', 'enfermera de noche'...
+  language    TEXT DEFAULT 'es',
+  PRIMARY KEY (user_id, name)
 );
 
-CREATE TABLE IF NOT EXISTS medications (     -- el agente la cruza con Keenable
-  id           SERIAL PRIMARY KEY,
-  resident_id  TEXT REFERENCES residents(id),
-  drug         TEXT NOT NULL,
-  dose         TEXT,
-  started_on   DATE
+CREATE TABLE IF NOT EXISTS routines (
+  id          SERIAL PRIMARY KEY,
+  user_id     TEXT REFERENCES users(id),
+  at_time     TIME,
+  description TEXT                        -- '18:00 visita de Ana'
 );
 
-CREATE TABLE IF NOT EXISTS notes (
-  id           SERIAL PRIMARY KEY,
-  resident_id  TEXT REFERENCES residents(id),
-  author       TEXT,
-  text         TEXT NOT NULL,
-  embedding    JSONB,                       -- vector de OpenAI (o pgvector si está disponible)
-  created_at   TIMESTAMPTZ DEFAULT now()
+-- Cada frase dicha o elegida, con su contexto. Es lo que busca search_memory.
+CREATE TABLE IF NOT EXISTS memories (
+  id            SERIAL PRIMARY KEY,
+  user_id       TEXT REFERENCES users(id),
+  phrase        TEXT NOT NULL,
+  initials      TEXT NOT NULL,            -- 'm d l e' (índice para búsqueda exacta por iniciales)
+  interlocutor  TEXT,
+  said_at       TIMESTAMPTZ,              -- fecha simulada en el corpus; now() en la app
+  state         TEXT,                     -- 'calma' | 'activación'
+  previous      TEXT,                     -- lo que le acababan de decir
+  times_used    INT DEFAULT 1,            -- sube con cada elección (aprendizaje)
+  source        TEXT DEFAULT 'corpus',    -- 'corpus' | 'choice' | 'correction'
+  embedding     vector(1536)              -- OpenAI text-embedding-3-small de "interlocutor: previous → phrase"
+);
+CREATE INDEX IF NOT EXISTS memories_user_initials ON memories (user_id, initials);
+-- Índice vectorial (opcional con <10k filas): CREATE INDEX ON memories USING hnsw (embedding vector_cosine_ops);
+
+-- Cada elección/corrección en la app: fuente del aprendizaje y de la métrica real de uso.
+CREATE TABLE IF NOT EXISTS choices (
+  id                SERIAL PRIMARY KEY,
+  user_id           TEXT,
+  input             TEXT,
+  candidates        JSONB,
+  chosen            TEXT,
+  edited_text       TEXT,
+  rank              INT,                  -- posición de la elegida (1-5) o NULL si la editó/escribió
+  tone              TEXT,
+  tone_was_changed  BOOLEAN,
+  created_at        TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS alerts (
+-- Traza del agente: panel lateral de la demo + entrega "data layer in action".
+CREATE TABLE IF NOT EXISTS agent_log (
   id              SERIAL PRIMARY KEY,
-  resident_id     TEXT REFERENCES residents(id),
-  created_at      TIMESTAMPTZ DEFAULT now(),
-  severity        TEXT,
-  state_estimate  TEXT,
-  confidence      REAL,
-  message         TEXT,
-  evidence        JSONB,
-  reasoning       JSONB,
-  audio_url       TEXT,
-  status          TEXT DEFAULT 'open',
-  true_label      TEXT                      -- etiqueta real de WESAD, para el benchmark
-);
-
-CREATE TABLE IF NOT EXISTS feedback (
-  id          SERIAL PRIMARY KEY,
-  alert_id    INT REFERENCES alerts(id),
-  verdict     TEXT CHECK (verdict IN ('real', 'false_alarm')),
-  note        TEXT,
-  author      TEXT,
-  learned     TEXT,
-  created_at  TIMESTAMPTZ DEFAULT now()
-);
-
-CREATE TABLE IF NOT EXISTS agent_log (       -- de aquí sale el TXT "data layer in action"
-  id          SERIAL PRIMARY KEY,
-  alert_id    INT,
-  step        INT,
-  tool        TEXT,
-  query       TEXT,
-  result      TEXT,
-  ms          INT,
-  created_at  TIMESTAMPTZ DEFAULT now()
+  user_id         TEXT,
+  request_id      TEXT,
+  step            INT,
+  tool            TEXT,
+  args            JSONB,
+  result_summary  TEXT,
+  ms              INT,
+  created_at      TIMESTAMPTZ DEFAULT now()
 );

@@ -1,32 +1,26 @@
-# Vigil — contexto para Claude Code
+# NeuroVoice — contexto para Claude Code
 
-Hackathon (Accel AI Innovate, París). Entrega: 22 oct 2026, 15:00. Equipo: María, Pedro, Marc.
+Hackathon Accel AI Innovate (París). Entrega: 22 oct 2026, 15:30. Equipo: María (benchmark, estado), Pedro (backend, agente), Marc (Lovable, voz, pitch).
 
 ## Producto
-Vigil: un agente que aprende cómo es cada residente de una residencia y avisa al cuidador cuando algo va mal,
-aunque la persona no pueda decirlo (demencia, discapacidad, no verbal).
+Copiloto de comunicación para personas con ELA que escriben con la mirada. Escriben iniciales ("m d l e"); un agente con
+memoria personal (quién está, qué suele decir, hora, estado) propone 5 frases; el usuario elige SIEMPRE; suena con su voz
+clonada (ElevenLabs eleven_v3) y con un tono preseleccionado por un wearable (WESAD, pulsera) que el usuario puede cambiar.
+Aprende de cada elección y corrección.
 
-## Reto y criterios (20 % cada uno)
-1. Problema real para un usuario claro. 2. Agente avanzado (multi-paso, autonomía, aprendizaje), no una sola llamada al LLM.
-3. Datos en el núcleo (frescura, escala, grounding, memoria). 4. Evidencia medible frente a una línea base ingenua o sin datos.
-5. Demo pulida y camino creíble a primeros usuarios.
+## Criterios del jurado (20 % cada uno)
+Problema real · agente avanzado (multi-paso, aprendizaje) · datos en el núcleo · evidencia medida frente a líneas base · pitch.
 Obligatorio: desplegar en Aiven Runtime y usar sus datos gestionados.
 
 ## Stack
-- Backend: Python + FastAPI (`backend/`), desplegado en Aiven Runtime.
-- Aiven ClickHouse: señales (`db/clickhouse.sql`). Aiven PostgreSQL: memoria (`db/postgres.sql`). Aiven Valkey: pub/sub en directo.
-- Agente: Claude (API de Claude Platform, modelo en `AGENT_MODEL`) con tool use.
-- Herramientas del agente: tendencia en ClickHouse, agenda/medicación/feedback en Postgres, notas similares (embeddings OpenAI),
-  Keenable (búsqueda web con fuentes sobre medicación y causas probables), crear alerta.
-- Voz: ElevenLabs `eleven_v3` con audio tags; cachear audios.
-- Frontend: repo aparte `vigil-frontend` hecho en Lovable; consume esta API (contrato en `docs/api.md`). NO usa Supabase para datos.
-- Supabase: solo login de cuidadores y Storage de MP3.
-- Dataset: WESAD (ECG, EDA, ACC del pecho a 700 Hz; etiquetas baseline/stress/amusement; 15 sujetos). Cada sujeto = un residente ficticio.
+FastAPI (backend/), Aiven PostgreSQL + pgvector (memoria), Aiven ClickHouse (señal y métricas), Aiven Valkey (caché, sesión, eventos),
+Claude con tool use (agente), OpenAI (embeddings, transcripción), ElevenLabs (voz), Keenable (web, opcional), Supabase (login y audios, opcional),
+Lovable (frontend, repo aparte).
 
-## Reglas
-- `docs/api.md` es el contrato. Si cambias la API, cámbialo primero.
-- Cada persona en su carpeta y su rama: María `data/` + `benchmark/`, Pedro `backend/`, Marc frontend + pitch.
-- Claves solo en `.env` (ver `.env.example`). Nunca subir `.env` ni datos de WESAD.
-- Todas las consultas del agente se registran en `agent_log` (de ahí sale la entrega "data layer in action").
-- El agente nunca diagnostica: da contexto con datos y fuentes citadas, y el cuidador decide.
-- Prioridad: que funcione de punta a punta antes que añadir funciones. 13:30 congelamos código.
+## Reglas de diseño (no negociables)
+- Nada se pronuncia sin selección explícita del usuario. El agente propone, nunca habla por él.
+- El tono es una sugerencia visible y anulable. No decir "leemos emociones".
+- Todo lo que hace el agente se registra en agent_log (traza de la demo y entrega "data layer").
+- El benchmark llama a la MISMA lógica que la app (/expand). Sin fuga temporal: memoria de días anteriores al evaluado.
+- No hay alertas clínicas (evita clasificar como producto sanitario).
+- Prioridad: flujo de punta a punta antes que extras. Ver docs/checklist.md.

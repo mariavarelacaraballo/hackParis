@@ -1,27 +1,18 @@
-# The data layer in action (borrador para la entrega)
+# The data layer in action (ENTREGA · rellenar a las 14:30 con datos reales)
 
 ## Qué datos usa el agente
-- Señales fisiológicas en streaming (WESAD: ECG → FC y RMSSD, EDA, acelerómetro).
-- Línea base personal de cada residente.
-- Agenda (fisioterapia, comidas) y medicación.
-- Fuentes externas vía Keenable (efectos de la medicación, causas probables), siempre citadas.
-- Notas de los cuidadores (con embeddings para buscar casos parecidos).
-- Feedback de cada alerta (real / falsa alarma) y lo aprendido.
+- Memoria personal de Lucas: frases dichas antes con su contexto (quién, cuándo, estado) → PostgreSQL + pgvector.
+- Contactos y rutinas → PostgreSQL.
+- Sesión en vivo: interlocutor, última frase escuchada, hora → Valkey.
+- Señal del wearable (FC, EDA, movimiento; WESAD pulsera) y estado estimado → ClickHouse + Valkey.
+- Elecciones y correcciones del usuario → PostgreSQL (así aprende).
+- Métricas de cada petición (latencia, coste) y resultados del benchmark → ClickHouse.
 
-## Dónde vive
-| Dato | Servicio |
-| --- | --- |
-| Señales y features | Aiven ClickHouse |
-| Residentes, agenda, notas, alertas, feedback, log del agente | Aiven PostgreSQL |
-| Eventos en directo | Aiven Valkey (pub/sub) |
-| Búsqueda web con fuentes | Keenable |
-| Audios de alertas, login | Supabase |
+## Dónde vive y cómo fluye
+(pegar el diagrama del Plan maestro o docs/architecture.md)
 
-## Cómo fluye
-1. El simulador publica ventanas de señal → ClickHouse + evento en Valkey.
-2. El agente (Claude) se activa con el evento y llama a sus herramientas:
-   tendencia (ClickHouse) → agenda y feedback previo (PostgreSQL) → notas similares (embeddings OpenAI) → si hay medicación reciente, Keenable busca efectos conocidos y cita la fuente.
-3. Decide si avisar; si avisa, ElevenLabs genera la voz y el panel la recibe por Valkey/SSE.
-4. El cuidador responde; el feedback se guarda y ajusta los umbrales de esa persona.
+## Consultas reales del agente (pegar de agent_log)
+TODO(Pedro, 14:30): SELECT tool, args, result_summary, ms FROM agent_log ORDER BY id DESC LIMIT 15;
 
-## Consultas reales (pegar del agent_log al final)
+## Prueba de que los datos importan
+TODO(María): misma petición con y sin memoria → resultado distinto (de benchmark/results/ablation.json).
