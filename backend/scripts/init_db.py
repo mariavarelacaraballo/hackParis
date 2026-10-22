@@ -14,6 +14,11 @@ with postgres.conn().cursor() as cur:
 postgres.reset()  # reconectar para registrar el tipo vector
 print("PostgreSQL OK")
 
+from backend.app import config  # noqa: E402
+
+if not config.CH_HOST:
+    print("ClickHouse sin configurar: lo salto (añade CH_HOST/CH_PORT/CH_USER/CH_PASSWORD al .env y vuelve a ejecutar)")
+    raise SystemExit(0)
 for stmt in (ROOT / "db/clickhouse.sql").read_text().split(";"):
     body = "\n".join(l for l in stmt.splitlines() if not l.strip().startswith("--")).strip()
     if body:

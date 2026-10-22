@@ -37,18 +37,26 @@ def search_memories(user_id: str, query_embedding, initials: str | None = None,
     """
     sql = """
         SELECT id, phrase, interlocutor, state, times_used,
-               (embedding <=> %(emb)s) AS dist
+               (CASE WHEN %(emb)s::vector IS NULL THEN NULL ELSE (embedding <=> %(emb)s::vector) END) AS dist
         FROM memories
         WHERE user_id = %(u)s
         ORDER BY
           (CASE WHEN initials = %(ini)s THEN 0 ELSE 1 END),
           (CASE WHEN interlocutor = %(who)s THEN 0 ELSE 1 END),
-          (embedding <=> %(emb)s) - 0.01 * LEAST(times_used, 10)
+          (CASE WHEN %(emb)s::vector IS NULL THEN 0 ELSE (embedding <=> %(emb)s::vector) END) - 0.01 * LEAST(times_used, 10)
         LIMIT %(k)s
     """
     with conn().cursor() as cur:
-        cur.execute(sql, {"u": user_id, "emb": query_embedding, "ini": initials or "", "who": interlocutor or "", "k": k})
-        return [dict(zip(["id", "phrase", "interlocutor", "state", "times_used", "dist"], r)) for r in cur.fetchall()]
+        cur.execute(sql, {"u": user_id, "emb": query_embedding, "ini": initials or "", "who": interlocutor or "", "k": k * 3})
+        rows = [dict(zip(["id", "phrase", "interlocutor", "state", "times_used", "dist"], r)) for r in cur.fetchall()]
+    # Quitar duplicados (la misma frase dicha varios días) sumando cuántas veces se usó
+    seen = {}
+    for r in rows:
+        if r["phrase"] in seen:
+            seen[r["phrase"]]["times_used"] += r["times_used"]
+        else:
+            seen[r["phrase"]] = r
+    return list(seen.values())[:k]
 
 
 def upsert_memory(user_id, phrase, initials, interlocutor, state, previous, embedding, source="choice"):

@@ -42,7 +42,8 @@ def expand(body: ExpandIn):
                        fixed_memories=body.memories,
                        log=None if body.memories is not None else
                        (lambda step, tool, args, summary, ms: postgres.log_step(body.user_id, "", step, tool, args, summary, ms)))
-    if body.memories is None and out["candidates"]:
+    fallback = any("respaldo" in (t.get("result_summary") or "") for t in out.get("trace", []))
+    if body.memories is None and out["candidates"] and not fallback:
         valkey.cache_set("expand", h, out, ttl=3600)
     try:
         clickhouse.log_metric(body.user_id, "expand", out["latency_ms"], out["cost_eur"], 0)

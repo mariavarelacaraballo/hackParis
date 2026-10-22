@@ -10,7 +10,7 @@ import time
 
 import anthropic
 
-MODEL = os.getenv("AGENT_MODEL", "claude-sonnet-4-5")
+MODEL = os.getenv("EXPAND_MODEL") or os.getenv("AGENT_MODEL", "claude-sonnet-5-5")
 PRICE_IN = float(os.getenv("PRICE_IN_PER_MTOK", "3.0"))    # USD por millón de tokens de entrada
 PRICE_OUT = float(os.getenv("PRICE_OUT_PER_MTOK", "15.0"))  # USD por millón de tokens de salida
 _client = None
@@ -43,12 +43,13 @@ def build_prompt(initials, context=None, memories=None):
 def expand(initials, context=None, memories=None):
     """Devuelve (candidatas, latencia_ms, coste_usd)."""
     t0 = time.perf_counter()
-    msg = client().messages.create(
-        model=MODEL, max_tokens=400, system=SYSTEM,
-        messages=[{"role": "user", "content": build_prompt(initials, context, memories)}],
-    )
+    kw = dict(model=MODEL, system=SYSTEM, messages=[{"role": "user", "content": build_prompt(initials, context, memories)}])
+    try:
+        msg = client().messages.create(max_tokens=1000, thinking={"type": "disabled"}, **kw)
+    except anthropic.BadRequestError:
+        msg = client().messages.create(max_tokens=8000, **kw)
     ms = (time.perf_counter() - t0) * 1000
-    text = msg.content[0].text
+    text = " ".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
     match = re.search(r"\[.*\]", text, re.S)
     try:
         cands = json.loads(match.group(0)) if match else []

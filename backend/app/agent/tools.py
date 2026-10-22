@@ -73,7 +73,9 @@ def run_tool(name: str, args: dict, ctx: dict) -> str:
         from .memory import embed
         c = ctx.get("context") or {}
         q = args.get("query") or f"{args.get('interlocutor') or c.get('interlocutor', '')}: {c.get('last_utterance', '')}"
-        rows = postgres.search_memories(ctx["user_id"], embed(q),
+        # Con iniciales, la búsqueda exacta por iniciales basta (ahorra ~2 s de embedding); sin ellas, búsqueda semántica.
+        emb = None if args.get("initials") else embed(q)
+        rows = postgres.search_memories(ctx["user_id"], emb,
                                         initials=args.get("initials"), interlocutor=args.get("interlocutor"),
                                         k=args.get("k", 8))
         return json.dumps([{"phrase": r["phrase"], "interlocutor": r["interlocutor"], "times_used": r["times_used"]}

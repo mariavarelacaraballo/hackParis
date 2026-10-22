@@ -18,12 +18,14 @@ with postgres.conn().cursor() as cur:
     for name, rel in profile["contacts"].items():
         cur.execute("INSERT INTO contacts (user_id, name, relation) VALUES (%s,%s,%s) ON CONFLICT DO NOTHING",
                     (profile["user_id"], name, rel))
+    cur.execute("DELETE FROM routines WHERE user_id = %s", (profile["user_id"],))  # idempotente
     for r in profile["routines"]:
         t, desc = r.split(" ", 1)
         cur.execute("INSERT INTO routines (user_id, at_time, description) VALUES (%s,%s,%s)", (profile["user_id"], t, desc))
 
 rows = [json.loads(l) for l in open(ROOT / "data/lucas/memory.jsonl", encoding="utf-8")]
 with postgres.conn().cursor() as cur:
+    cur.execute("DELETE FROM memories WHERE user_id = %s AND source = 'corpus'", (profile["user_id"],))  # idempotente
     for r in rows:
         cur.execute(
             "INSERT INTO memories (user_id, phrase, initials, interlocutor, said_at, state, previous, source, embedding) "

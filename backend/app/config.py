@@ -6,11 +6,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 PG_URI = os.getenv("PG_URI", "")
-CH_HOST, CH_PORT = os.getenv("CH_HOST", ""), int(os.getenv("CH_PORT", "8443"))
+CH_HOST = os.getenv("CH_HOST", "")
+CH_PORT = int(os.getenv("CH_PORT") or 8443) if (os.getenv("CH_PORT") or "8443").isdigit() else 8443
 CH_USER, CH_PASSWORD = os.getenv("CH_USER", "avnadmin"), os.getenv("CH_PASSWORD", "")
 VALKEY_URI = os.getenv("VALKEY_URI", "")
 
-AGENT_MODEL = os.getenv("AGENT_MODEL", "claude-sonnet-4-5")
+AGENT_MODEL = os.getenv("AGENT_MODEL", "claude-sonnet-5-5")
+EXPAND_MODEL = os.getenv("EXPAND_MODEL") or AGENT_MODEL  # modelo rápido para /expand (p. ej. claude-haiku-5-5)
 PRICE_IN = float(os.getenv("PRICE_IN_PER_MTOK", "3.0"))
 PRICE_OUT = float(os.getenv("PRICE_OUT_PER_MTOK", "15.0"))
 

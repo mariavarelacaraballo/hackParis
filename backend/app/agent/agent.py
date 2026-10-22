@@ -3,6 +3,7 @@
 expand() es LA función que usan la app (/expand) y el benchmark (vía EXPAND_URL).
 """
 import json
+import re
 import time
 import uuid
 
@@ -12,7 +13,7 @@ from .. import config
 from .prompts import SYSTEM
 from .tools import TOOLS, run_tool
 
-MAX_ROUNDS = 4
+MAX_ROUNDS = 3
 _client = None
 
 
@@ -21,6 +22,15 @@ def client():
     if _client is None:
         _client = anthropic.Anthropic()
     return _client
+
+
+def create(**kw):
+    """Llamada sin 'thinking' (si el modelo lo usa por defecto, se come los tokens y no llega a responder).
+    Si la API no acepta desactivarlo, reintenta con más tokens."""
+    try:
+        return client().messages.create(max_tokens=1000, thinking={"type": "disabled"}, **kw)
+    except anthropic.BadRequestError:
+        return client().messages.create(max_tokens=8000, **kw)
 
 
 def expand(user_id: str, mode: str, user_input, context: dict, state: dict, profile: str = "",
@@ -33,40 +43,94 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
     request_id = uuid.uuid4().hex[:8]
     ctx = {"user_id": user_id, "context": context, "state": state, "fixed_memories": fixed_memories}
     shown = user_input if isinstance(user_input, str) else " + ".join(user_input)
-    messages = [{"role": "user", "content": f"Modo: {mode}. Entrada del usuario: {shown}"}]
-    system = SYSTEM.format(name=profile.split()[0] if profile else "el usuario", profile=profile)
     trace, cost = [], 0.0
 
+    # Prefetch (rápido): las 3 consultas de datos que el agente siempre necesita, sin esperar a Claude.
+    prefetched = []
+    initials = shown if mode == "initials" else ""
+    for step, (tool, args) in enumerate([("search_memory", {"initials": initials, "interlocutor": (context or {}).get("interlocutor")}),
+                                         ("get_context", {}), ("get_state", {})]):
+        t1 = time.perf_counter()
+        result = run_tool(tool, args, ctx)
+        ms = int((time.perf_counter() - t1) * 1000)
+        trace.append({"tool": tool, "args": args, "result_summary": result[:120], "ms": ms})
+        if log:
+            log(step, tool, args, result[:120], ms)
+        prefetched.append(f"[{tool}] {result}")
+    messages = [{"role": "user", "content": f"Modo: {mode}. Entrada del usuario: {shown}\n\n"
+                 "Datos ya consultados para ti (no repitas estas herramientas salvo que necesites otra búsqueda distinta):\n"
+                 + "\n".join(prefetched)
+                 + "\n\nSi la frase trata de algo actual, usa web_search; si no, llama directamente a propose_phrases."}]
+    system = SYSTEM.format(name=profile.split()[0] if profile else "el usuario", profile=profile)
+    def matches(phrase):
+        words = re.findall(r"[\wáéíóúñü]+", phrase.lower())
+        want = initials.split()
+        return len(words) >= len(want) and all(w.startswith(i) for w, i in zip(words, want))
+
+    def final(out, why=""):
+        cands = list(dict.fromkeys(str(c) for c in out.get("candidates", [])))
+        if initials:
+            good = [c for c in cands if matches(c)]
+            cands = good or cands  # si ninguna encaja, mejor algo que nada
+        return {
+            "candidates": cands[:5],
+            "suggested_tone": out.get("suggested_tone", "neutro"),
+            "trace": trace + [{"tool": "propose_phrases", "args": {}, "result_summary": out.get("why", why), "ms": 0}],
+            "latency_ms": int((time.perf_counter() - t0) * 1000),
+            "cost_eur": round(cost * 0.92, 5),  # USD→EUR aproximado
+            "request_id": request_id,
+        }
+
+    # Respuesta en JSON: más fiable y rápido que forzar la herramienta final (este modelo no admite tool_choice).
+    messages[0]["content"] += ("\n\nResponde SOLO con un objeto JSON, sin texto alrededor: "
+                               '{"candidates": [5 frases], "suggested_tone": "neutro|tranquilo|contento|cansado|molesto|urgente", '
+                               '"why": "una línea"}')
+    web_tools = [t for t in TOOLS if t["name"] == "web_search"] if config.KEENABLE_API_KEY else []
+
     for step in range(MAX_ROUNDS):
-        # En la última ronda forzamos la herramienta final para no pasarnos de latencia.
-        tool_choice = {"type": "tool", "name": "propose_phrases"} if step == MAX_ROUNDS - 1 else {"type": "any"}
-        msg = client().messages.create(model=config.AGENT_MODEL, max_tokens=600, system=system,
-                                       tools=TOOLS, tool_choice=tool_choice, messages=messages)
+        kwargs = {"tools": web_tools} if web_tools else {}
+        msg = create(model=config.EXPAND_MODEL, system=system, messages=messages, **kwargs)
         cost += msg.usage.input_tokens / 1e6 * config.PRICE_IN + msg.usage.output_tokens / 1e6 * config.PRICE_OUT
         messages.append({"role": "assistant", "content": msg.content})
         results = []
         for block in msg.content:
-            if block.type != "tool_use":
-                continue
-            if block.name == "propose_phrases":
-                out = block.input
-                return {
-                    "candidates": out["candidates"][:5],
-                    "suggested_tone": out.get("suggested_tone", "neutro"),
-                    "trace": trace + [{"tool": "propose_phrases", "args": {}, "result_summary": out.get("why", ""), "ms": 0}],
-                    "latency_ms": int((time.perf_counter() - t0) * 1000),
-                    "cost_eur": round(cost * 0.92, 5),  # USD→EUR aproximado; TODO ajustar
-                    "request_id": request_id,
-                }
-            t1 = time.perf_counter()
-            result = run_tool(block.name, block.input, ctx)
-            ms = int((time.perf_counter() - t1) * 1000)
-            summary = result[:120]
-            trace.append({"tool": block.name, "args": block.input, "result_summary": summary, "ms": ms})
-            if log:
-                log(step, block.name, block.input, summary, ms)
-            results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
-        messages.append({"role": "user", "content": results})
+            if block.type == "tool_use":
+                t1 = time.perf_counter()
+                result = run_tool(block.name, block.input, ctx)
+                ms = int((time.perf_counter() - t1) * 1000)
+                trace.append({"tool": block.name, "args": block.input, "result_summary": result[:120], "ms": ms})
+                if log:
+                    log(3 + step, block.name, block.input, result[:120], ms)
+                results.append({"type": "tool_result", "tool_use_id": block.id, "content": result})
+        if results:
+            messages.append({"role": "user", "content": results})
+            continue
+        text = " ".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
+        m = re.search(r"\{.*\}", text, re.S)
+        try:
+            out = json.loads(m.group(0)) if m else {}
+        except Exception:
+            out = {}
+        if not out.get("candidates"):
+            m2 = re.search(r"\[.*\]", text, re.S)
+            try:
+                out = {"candidates": json.loads(m2.group(0))} if m2 else {}
+            except Exception:
+                out = {}
+        if out.get("candidates"):
+            return final(out)
+        raw_debug = f"stop={msg.stop_reason} bloques={[b.type for b in msg.content]} texto={text[:160]!r}"
+        break
+    else:
+        raw_debug = "sin respuesta final"
+
+    # Respaldo: frases de la memoria con esas iniciales (nunca devolvemos la lista vacía si hay recuerdos).
+    try:
+        mem = json.loads(run_tool("search_memory", {"initials": initials}, ctx))
+        cands = list(dict.fromkeys(m["phrase"] if isinstance(m, dict) else str(m) for m in mem))[:5]
+    except Exception:
+        cands = []
+    return final({"candidates": cands, "suggested_tone": "neutro"}, why="respaldo desde memoria · " + raw_debug)
 
     return {"candidates": [], "suggested_tone": "neutro", "trace": trace,
             "latency_ms": int((time.perf_counter() - t0) * 1000), "cost_eur": round(cost * 0.92, 5)}

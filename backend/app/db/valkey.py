@@ -16,10 +16,28 @@ from .. import config
 _r = None
 
 
+class _MemoryStore:
+    """Respaldo en memoria mientras Valkey no está configurado (misma interfaz mínima)."""
+    def __init__(self):
+        self.d = {}
+
+    def hset(self, k, mapping):
+        self.d.setdefault(k, {}).update({a: str(b) for a, b in mapping.items()})
+
+    def hgetall(self, k):
+        return dict(self.d.get(k, {}))
+
+    def get(self, k):
+        return self.d.get(k)
+
+    def set(self, k, v, ex=None):
+        self.d[k] = v
+
+
 def r():
     global _r
     if _r is None:
-        _r = redis.from_url(config.VALKEY_URI, decode_responses=True)
+        _r = redis.from_url(config.VALKEY_URI, decode_responses=True) if config.VALKEY_URI else _MemoryStore()
     return _r
 
 
