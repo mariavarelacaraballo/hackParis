@@ -51,9 +51,15 @@ def speak(user_id: str, text: str, tone: str, language: str) -> dict:
         return {**hit, "cached": True, "latency_ms": int((time.perf_counter() - t0) * 1000)}
     if language != "es":
         text = translate(text, language)
-    audio = b"".join(el().text_to_speech.convert(
-        voice_id=config.VOICE_ID, text=f"{TONE_TAGS.get(tone, '')} {text}".strip(),
-        model_id=config.TTS_MODEL, output_format="mp3_44100_128"))
+    try:
+        audio = b"".join(el().text_to_speech.convert(
+            voice_id=config.VOICE_ID, text=f"{TONE_TAGS.get(tone, '')} {text}".strip(),
+            model_id=config.TTS_MODEL, output_format="mp3_44100_128"))
+    except Exception as e:
+        # Respaldo: modelo multilingüe v2 sin etiquetas de tono (las leería en voz alta)
+        print("ElevenLabs v3 falló, uso multilingual_v2:", getattr(e, "status_code", ""), getattr(e, "body", e))
+        audio = b"".join(el().text_to_speech.convert(
+            voice_id=config.VOICE_ID, text=text, model_id="eleven_multilingual_v2", output_format="mp3_44100_128"))
     from .storage import upload_audio
     out = upload_audio(h, audio)
     valkey.cache_set("audio", h, out, ttl=86400)

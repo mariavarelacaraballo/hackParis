@@ -1,0 +1,68 @@
+[
+  {
+    "variant": 1,
+    "name": "Escribir entero",
+    "n": 56,
+    "ksr": 0.0,
+    "top1": 0,
+    "top5": 0,
+    "latency_p50_ms": 0,
+    "latency_p95_ms": 0,
+    "cost_usd_per_phrase": 0.0
+  },
+  {
+    "variant": 2,
+    "name": "Predicción por frecuencia",
+    "n": 56,
+    "ksr": 0.53,
+    "top1": 0,
+    "top5": 0,
+    "latency_p50_ms": 0,
+    "latency_p95_ms": 0,
+    "cost_usd_per_phrase": 0.0
+  },
+  {
+    "variant": 3,
+    "name": "LLM sin memoria ni contexto",
+    "n": 56,
+    "ksr": 0.116,
+    "top1": 0.125,
+    "top5": 0.143,
+    "latency_p50_ms": 3778,
+    "latency_p95_ms": 4918,
+    "cost_usd_per_phrase": 0.00337
+  },
+  {
+    "variant": 4,
+    "name": "LLM + contexto conversacional",
+    "n": 56,
+    "ksr": 0.255,
+    "top1": 0.125,
+    "top5": 0.179,
+    "latency_p50_ms": 3552,
+    "latency_p95_ms": 4615,
+    "cost_usd_per_phrase": 0.00356
+  },
+  {
+    "variant": 5,
+    "name": "LLM + memoria (NeuroVoice)",
+    "n": 56,
+    "ksr": 0.448,
+    "top1": 0.357,
+    "top5": 0.429,
+    "latency_p50_ms": 3029,
+    "latency_p95_ms": 4455,
+    "cost_usd_per_phrase": 0.0038
+  },
+  {
+    "variant": 6,
+    "name": "NeuroVoice + hora y estado",
+    "n": 56,
+    "ksr": 0.423,
+    "top1": 0.214,
+    "top5": 0.321,
+    "latency_p50_ms": 3501,
+    "latency_p95_ms": 4478,
+    "cost_usd_per_phrase": 0.00425
+  }
+]

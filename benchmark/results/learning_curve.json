@@ -1,0 +1,35 @@
+[
+  {
+    "extra_days_of_use": 0,
+    "memory_size": 86,
+    "n": 18,
+    "ksr": 0.42,
+    "top1": 0.389,
+    "top5": 0.5,
+    "latency_p50_ms": 3309,
+    "latency_p95_ms": 6013,
+    "cost_usd_per_phrase": 0.00383
+  },
+  {
+    "extra_days_of_use": 1,
+    "memory_size": 105,
+    "n": 18,
+    "ksr": 0.557,
+    "top1": 0.389,
+    "top5": 0.444,
+    "latency_p50_ms": 3302,
+    "latency_p95_ms": 4029,
+    "cost_usd_per_phrase": 0.00373
+  },
+  {
+    "extra_days_of_use": 2,
+    "memory_size": 124,
+    "n": 18,
+    "ksr": 0.426,
+    "top1": 0.167,
+    "top5": 0.278,
+    "latency_p50_ms": 3345,
+    "latency_p95_ms": 4328,
+    "cost_usd_per_phrase": 0.00417
+  }
+]
