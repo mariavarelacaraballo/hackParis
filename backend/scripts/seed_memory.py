@@ -13,7 +13,7 @@ from backend.app.db import postgres  # noqa: E402
 
 profile = json.loads((ROOT / "data/lucas/profile.json").read_text())
 with postgres.conn().cursor() as cur:
-    cur.execute("INSERT INTO users (id, name, language, profile) VALUES (%s,%s,%s,%s) ON CONFLICT (id) DO NOTHING",
+    cur.execute("INSERT INTO users (id, name, language, profile) VALUES (%s,%s,%s,%s) ON CONFLICT (id) DO UPDATE SET language = EXCLUDED.language, profile = EXCLUDED.profile",
                 (profile["user_id"], profile["name"], profile["language"], json.dumps(profile, ensure_ascii=False)))
     for name, rel in profile["contacts"].items():
         cur.execute("INSERT INTO contacts (user_id, name, relation) VALUES (%s,%s,%s) ON CONFLICT DO NOTHING",
@@ -25,7 +25,7 @@ with postgres.conn().cursor() as cur:
 
 rows = [json.loads(l) for l in open(ROOT / "data/lucas/memory.jsonl", encoding="utf-8")]
 with postgres.conn().cursor() as cur:
-    cur.execute("DELETE FROM memories WHERE user_id = %s AND source = 'corpus'", (profile["user_id"],))  # idempotente
+    cur.execute("DELETE FROM memories WHERE user_id = %s", (profile["user_id"],))  # idempotente (borra también lo aprendido en pruebas)
     for r in rows:
         cur.execute(
             "INSERT INTO memories (user_id, phrase, initials, interlocutor, said_at, state, previous, source, embedding) "

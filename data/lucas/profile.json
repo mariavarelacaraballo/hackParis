@@ -2,27 +2,27 @@
   "user_id": "lucas",
   "name": "Lucas",
   "age": 58,
-  "condition": "ELA, escribe con la mirada",
-  "language": "es",
+  "condition": "ALS, types with eye gaze",
+  "language": "en",
   "contacts": {
-    "Ana": "hija, viene por las tardes",
-    "Javier": "hijo, llama los domingos",
-    "Claire": "enfermera de noche, habla francés",
-    "Marta": "logopeda, martes y jueves por la mañana",
-    "Rosa": "mujer de Lucas"
+    "Ana": "daughter, visits in the afternoons",
+    "Javier": "son, calls on Sundays",
+    "Claire": "night nurse, speaks French",
+    "Marta": "speech therapist, Tuesday and Thursday mornings",
+    "Rosa": "Lucas's wife"
   },
   "routines": [
-    "08:00 desayuno y medicación",
-    "11:00 fisioterapia",
-    "14:00 comida",
-    "18:00 visita de Ana",
-    "21:00 cena",
-    "23:00 Claire hace la ronda de noche"
+    "08:00 breakfast and medication",
+    "11:00 physiotherapy",
+    "14:00 lunch",
+    "18:00 Ana visits",
+    "21:00 dinner",
+    "23:00 Claire's night round"
   ],
   "interests": [
     "Real Betis",
     "flamenco",
-    "nietos Pablo y Lola",
-    "pesca"
+    "grandchildren Pablo and Lola",
+    "fishing"
   ]
 }

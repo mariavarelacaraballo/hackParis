@@ -1,86 +1,86 @@
-{"user_id": "lucas", "date": "2026-10-01", "time": "02:00", "interlocutor": "Claire", "previous": "Je vous ai entendu, tout va bien ?", "state": "activación", "phrase": "Me duele la espalda, llama a la enfermera"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "02:10", "interlocutor": "Claire", "previous": "Vous voulez boire ?", "state": "activación", "phrase": "Sí, agua, tengo la boca seca"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "08:00", "interlocutor": "Rosa", "previous": "Buenos días, cariño. ¿Has dormido bien?", "state": "calma", "phrase": "He dormido regular, me desperté varias veces"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "08:00", "interlocutor": "Rosa", "previous": "¿Te traigo el desayuno?", "state": "calma", "phrase": "Sí, un café con leche, por favor"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "08:10", "interlocutor": "Rosa", "previous": "Aquí tienes las pastillas.", "state": "calma", "phrase": "Gracias, ¿me das un poco de agua?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "11:00", "interlocutor": "Marta", "previous": "Hola Lucas, ¿empezamos con los ejercicios?", "state": "calma", "phrase": "Hoy estoy algo cansado, vamos despacio"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "11:30", "interlocutor": "Marta", "previous": "¿Cómo notas la garganta?", "state": "calma", "phrase": "Me cuesta más tragar que la semana pasada"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "12:00", "interlocutor": "Javier", "previous": "¡Hola papá! ¿Cómo estás?", "state": "calma", "phrase": "Bien, hijo. ¿Cuándo vienes a verme?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "14:00", "interlocutor": "Rosa", "previous": "¿Tienes hambre?", "state": "calma", "phrase": "Un poco, ¿qué hay de comer?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "14:30", "interlocutor": "Rosa", "previous": "¿Estás cómodo así?", "state": "activación", "phrase": "Me duele la espalda, cámbiame de postura"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "18:00", "interlocutor": "Ana", "previous": "¡Hola papá! ¿Qué tal el día?", "state": "calma", "phrase": "Bien, algo cansado. ¿Y tú?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "18:05", "interlocutor": "Ana", "previous": "Uf, mucho trabajo, como siempre.", "state": "calma", "phrase": "¿Qué tal el trabajo?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "18:10", "interlocutor": "Ana", "previous": "Los niños te mandan besos.", "state": "calma", "phrase": "¿Cómo están Pablo y Lola?"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "18:20", "interlocutor": "Ana", "previous": "¿Quieres que pongamos algo en la tele?", "state": "calma", "phrase": "Pon el partido del Betis"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "18:50", "interlocutor": "Ana", "previous": "Me tengo que ir ya, papá.", "state": "calma", "phrase": "Gracias por venir, te quiero"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "21:00", "interlocutor": "Rosa", "previous": "¿Cenamos?", "state": "calma", "phrase": "Sí, pero algo ligero"}
-{"user_id": "lucas", "date": "2026-10-01", "time": "23:05", "interlocutor": "Claire", "previous": "Vous avez besoin de quelque chose ?", "state": "activación", "phrase": "Tengo frío, ¿me traes otra manta?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "02:00", "interlocutor": "Claire", "previous": "Je vous ai entendu, tout va bien ?", "state": "activación", "phrase": "Me duele la espalda, llama a la enfermera"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "08:00", "interlocutor": "Rosa", "previous": "Buenos días, cariño. ¿Has dormido bien?", "state": "calma", "phrase": "He dormido regular, me desperté varias veces"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "08:00", "interlocutor": "Rosa", "previous": "¿Te traigo el desayuno?", "state": "calma", "phrase": "Sí, un café con leche, por favor"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "08:10", "interlocutor": "Rosa", "previous": "Aquí tienes las pastillas.", "state": "calma", "phrase": "Gracias, ¿me das un poco de agua?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "11:00", "interlocutor": "Marta", "previous": "Hola Lucas, ¿empezamos con los ejercicios?", "state": "calma", "phrase": "Hoy estoy algo cansado, vamos despacio"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "11:30", "interlocutor": "Marta", "previous": "¿Cómo notas la garganta?", "state": "calma", "phrase": "Me cuesta más tragar que la semana pasada"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "12:00", "interlocutor": "Javier", "previous": "¡Hola papá! ¿Cómo estás?", "state": "calma", "phrase": "Bien, hijo. ¿Cuándo vienes a verme?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "14:00", "interlocutor": "Rosa", "previous": "¿Tienes hambre?", "state": "calma", "phrase": "Un poco, ¿qué hay de comer?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "14:30", "interlocutor": "Rosa", "previous": "¿Estás cómodo así?", "state": "activación", "phrase": "Me duele la espalda, cámbiame de postura"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "15:00", "interlocutor": "Rosa", "previous": "¿Te pongo música?", "state": "calma", "phrase": "Pon algo de flamenco"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "16:00", "interlocutor": "Rosa", "previous": "¿Quieres descansar un rato?", "state": "calma", "phrase": "Sí, baja la persiana, por favor"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "18:00", "interlocutor": "Ana", "previous": "¡Hola papá! ¿Qué tal el día?", "state": "calma", "phrase": "Bien, algo cansado. ¿Y tú?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "18:05", "interlocutor": "Ana", "previous": "Uf, mucho trabajo, como siempre.", "state": "calma", "phrase": "¿Qué tal el trabajo?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "18:10", "interlocutor": "Ana", "previous": "Los niños te mandan besos.", "state": "calma", "phrase": "¿Cómo están Pablo y Lola?"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "18:20", "interlocutor": "Ana", "previous": "¿Quieres que pongamos algo en la tele?", "state": "calma", "phrase": "Pon el partido del Betis"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "18:50", "interlocutor": "Ana", "previous": "Me tengo que ir ya, papá.", "state": "calma", "phrase": "Gracias por venir, te quiero"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "21:00", "interlocutor": "Rosa", "previous": "¿Cenamos?", "state": "calma", "phrase": "Sí, pero algo ligero"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "23:00", "interlocutor": "Claire", "previous": "Bonsoir Lucas, ça va ?", "state": "calma", "phrase": "Estoy bien, gracias"}
-{"user_id": "lucas", "date": "2026-10-02", "time": "23:05", "interlocutor": "Claire", "previous": "Vous avez besoin de quelque chose ?", "state": "activación", "phrase": "Tengo frío, ¿me traes otra manta?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "02:00", "interlocutor": "Claire", "previous": "Je vous ai entendu, tout va bien ?", "state": "activación", "phrase": "Me duele la espalda, llama a la enfermera"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "08:00", "interlocutor": "Rosa", "previous": "Buenos días, cariño. ¿Has dormido bien?", "state": "calma", "phrase": "He dormido regular, me desperté varias veces"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "08:00", "interlocutor": "Rosa", "previous": "¿Te traigo el desayuno?", "state": "calma", "phrase": "Sí, un café con leche, por favor"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "08:10", "interlocutor": "Rosa", "previous": "Aquí tienes las pastillas.", "state": "calma", "phrase": "Gracias, ¿me das un poco de agua?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "11:00", "interlocutor": "Marta", "previous": "Hola Lucas, ¿empezamos con los ejercicios?", "state": "calma", "phrase": "Hoy estoy algo cansado, vamos despacio"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "11:30", "interlocutor": "Marta", "previous": "¿Cómo notas la garganta?", "state": "calma", "phrase": "Me cuesta más tragar que la semana pasada"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "11:40", "interlocutor": "Marta", "previous": "Lo has hecho muy bien hoy.", "state": "calma", "phrase": "Gracias, me ayudas mucho"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "12:00", "interlocutor": "Javier", "previous": "¡Hola papá! ¿Cómo estás?", "state": "calma", "phrase": "Bien, hijo. ¿Cuándo vienes a verme?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "14:00", "interlocutor": "Rosa", "previous": "¿Tienes hambre?", "state": "calma", "phrase": "Un poco, ¿qué hay de comer?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "14:30", "interlocutor": "Rosa", "previous": "¿Estás cómodo así?", "state": "activación", "phrase": "Me duele la espalda, cámbiame de postura"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "16:00", "interlocutor": "Rosa", "previous": "¿Quieres descansar un rato?", "state": "calma", "phrase": "Sí, baja la persiana, por favor"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "18:00", "interlocutor": "Ana", "previous": "¡Hola papá! ¿Qué tal el día?", "state": "calma", "phrase": "Bien, algo cansado. ¿Y tú?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "18:05", "interlocutor": "Ana", "previous": "Uf, mucho trabajo, como siempre.", "state": "calma", "phrase": "¿Qué tal el trabajo?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "18:10", "interlocutor": "Ana", "previous": "Los niños te mandan besos.", "state": "calma", "phrase": "¿Cómo están Pablo y Lola?"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "18:50", "interlocutor": "Ana", "previous": "Me tengo que ir ya, papá.", "state": "calma", "phrase": "Gracias por venir, te quiero"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "21:00", "interlocutor": "Rosa", "previous": "¿Cenamos?", "state": "calma", "phrase": "Sí, pero algo ligero"}
-{"user_id": "lucas", "date": "2026-10-03", "time": "23:05", "interlocutor": "Claire", "previous": "Vous avez besoin de quelque chose ?", "state": "activación", "phrase": "Tengo frío, ¿me traes otra manta?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "02:00", "interlocutor": "Claire", "previous": "Je vous ai entendu, tout va bien ?", "state": "activación", "phrase": "Me duele la espalda, llama a la enfermera"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "08:00", "interlocutor": "Rosa", "previous": "Buenos días, cariño. ¿Has dormido bien?", "state": "calma", "phrase": "He dormido regular, me desperté varias veces"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "08:10", "interlocutor": "Rosa", "previous": "Aquí tienes las pastillas.", "state": "calma", "phrase": "Gracias, ¿me das un poco de agua?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "11:00", "interlocutor": "Marta", "previous": "Hola Lucas, ¿empezamos con los ejercicios?", "state": "calma", "phrase": "Hoy estoy algo cansado, vamos despacio"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "11:30", "interlocutor": "Marta", "previous": "¿Cómo notas la garganta?", "state": "calma", "phrase": "Me cuesta más tragar que la semana pasada"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "12:00", "interlocutor": "Javier", "previous": "¡Hola papá! ¿Cómo estás?", "state": "calma", "phrase": "Bien, hijo. ¿Cuándo vienes a verme?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "14:30", "interlocutor": "Rosa", "previous": "¿Estás cómodo así?", "state": "activación", "phrase": "Me duele la espalda, cámbiame de postura"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "16:00", "interlocutor": "Rosa", "previous": "¿Quieres descansar un rato?", "state": "calma", "phrase": "Sí, baja la persiana, por favor"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:00", "interlocutor": "Ana", "previous": "¡Hola papá! ¿Qué tal el día?", "state": "calma", "phrase": "Bien, algo cansado. ¿Y tú?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:05", "interlocutor": "Ana", "previous": "Uf, mucho trabajo, como siempre.", "state": "calma", "phrase": "¿Qué tal el trabajo?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:10", "interlocutor": "Ana", "previous": "Los niños te mandan besos.", "state": "calma", "phrase": "¿Cómo están Pablo y Lola?"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:20", "interlocutor": "Ana", "previous": "¿Quieres que pongamos algo en la tele?", "state": "calma", "phrase": "Pon el partido del Betis"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:40", "interlocutor": "Ana", "previous": "Mañana no puedo venir.", "state": "calma", "phrase": "No pasa nada, ven cuando puedas"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "18:50", "interlocutor": "Ana", "previous": "Me tengo que ir ya, papá.", "state": "calma", "phrase": "Gracias por venir, te quiero"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "21:00", "interlocutor": "Rosa", "previous": "¿Cenamos?", "state": "calma", "phrase": "Sí, pero algo ligero"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "23:00", "interlocutor": "Claire", "previous": "Bonsoir Lucas, ça va ?", "state": "calma", "phrase": "Estoy bien, gracias"}
-{"user_id": "lucas", "date": "2026-10-04", "time": "23:05", "interlocutor": "Claire", "previous": "Vous avez besoin de quelque chose ?", "state": "activación", "phrase": "Tengo frío, ¿me traes otra manta?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "02:00", "interlocutor": "Claire", "previous": "Je vous ai entendu, tout va bien ?", "state": "activación", "phrase": "Me duele la espalda, llama a la enfermera"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "08:00", "interlocutor": "Rosa", "previous": "¿Te traigo el desayuno?", "state": "calma", "phrase": "Sí, un café con leche, por favor"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "08:10", "interlocutor": "Rosa", "previous": "Aquí tienes las pastillas.", "state": "calma", "phrase": "Gracias, ¿me das un poco de agua?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "08:20", "interlocutor": "Rosa", "previous": "Hoy viene tu hermano.", "state": "calma", "phrase": "Qué alegría, hace mucho que no lo veo"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "11:00", "interlocutor": "Marta", "previous": "Hola Lucas, ¿empezamos con los ejercicios?", "state": "calma", "phrase": "Hoy estoy algo cansado, vamos despacio"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "11:30", "interlocutor": "Marta", "previous": "¿Cómo notas la garganta?", "state": "calma", "phrase": "Me cuesta más tragar que la semana pasada"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "12:00", "interlocutor": "Javier", "previous": "¡Hola papá! ¿Cómo estás?", "state": "calma", "phrase": "Bien, hijo. ¿Cuándo vienes a verme?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "14:00", "interlocutor": "Rosa", "previous": "¿Tienes hambre?", "state": "calma", "phrase": "Un poco, ¿qué hay de comer?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "14:30", "interlocutor": "Rosa", "previous": "¿Estás cómodo así?", "state": "activación", "phrase": "Me duele la espalda, cámbiame de postura"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "18:00", "interlocutor": "Ana", "previous": "¡Hola papá! ¿Qué tal el día?", "state": "calma", "phrase": "Bien, algo cansado. ¿Y tú?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "18:05", "interlocutor": "Ana", "previous": "Uf, mucho trabajo, como siempre.", "state": "calma", "phrase": "¿Qué tal el trabajo?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "18:10", "interlocutor": "Ana", "previous": "Los niños te mandan besos.", "state": "calma", "phrase": "¿Cómo están Pablo y Lola?"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "18:20", "interlocutor": "Ana", "previous": "¿Quieres que pongamos algo en la tele?", "state": "calma", "phrase": "Pon el partido del Betis"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "18:50", "interlocutor": "Ana", "previous": "Me tengo que ir ya, papá.", "state": "calma", "phrase": "Gracias por venir, te quiero"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "21:00", "interlocutor": "Rosa", "previous": "¿Cenamos?", "state": "calma", "phrase": "Sí, pero algo ligero"}
-{"user_id": "lucas", "date": "2026-10-05", "time": "23:05", "interlocutor": "Claire", "previous": "Vous avez besoin de quelque chose ?", "state": "activación", "phrase": "Tengo frío, ¿me traes otra manta?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "02:00", "interlocutor": "Claire", "previous": "I heard you, is everything okay?", "state": "activación", "phrase": "My back hurts, call the nurse"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "02:10", "interlocutor": "Claire", "previous": "Would you like something to drink?", "state": "activación", "phrase": "Yes, water, my mouth is dry"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "08:00", "interlocutor": "Rosa", "previous": "Good morning, love. Did you sleep well?", "state": "calma", "phrase": "I slept badly, I woke up several times"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "08:00", "interlocutor": "Rosa", "previous": "Shall I bring you breakfast?", "state": "calma", "phrase": "Yes, a coffee with milk, please"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "08:10", "interlocutor": "Rosa", "previous": "Here are your pills.", "state": "calma", "phrase": "Thanks, can I have some water?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "11:00", "interlocutor": "Marta", "previous": "Hi Lucas, shall we start the exercises?", "state": "calma", "phrase": "I'm a bit tired today, let's go slowly"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "11:30", "interlocutor": "Marta", "previous": "How does your throat feel?", "state": "calma", "phrase": "Swallowing is harder than last week"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "12:00", "interlocutor": "Javier", "previous": "Hi Dad! How are you?", "state": "calma", "phrase": "Good, son. When are you coming to see me?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "14:00", "interlocutor": "Rosa", "previous": "Are you hungry?", "state": "calma", "phrase": "A little, what's for lunch?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "14:30", "interlocutor": "Rosa", "previous": "Are you comfortable like this?", "state": "activación", "phrase": "My back hurts, change my position"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "18:00", "interlocutor": "Ana", "previous": "Hi Dad! How was your day?", "state": "calma", "phrase": "Good, a bit tired. And you?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "18:05", "interlocutor": "Ana", "previous": "Ugh, lots of work, as always.", "state": "calma", "phrase": "How is work going?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "18:10", "interlocutor": "Ana", "previous": "The kids send you kisses.", "state": "calma", "phrase": "How are Pablo and Lola?"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "18:20", "interlocutor": "Ana", "previous": "Do you want to watch something on TV?", "state": "calma", "phrase": "Put the Betis match on"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "18:50", "interlocutor": "Ana", "previous": "I have to go now, Dad.", "state": "calma", "phrase": "Thanks for coming, I love you"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "21:00", "interlocutor": "Rosa", "previous": "Shall we have dinner?", "state": "calma", "phrase": "Yes, but something light"}
+{"user_id": "lucas", "date": "2026-10-01", "time": "23:05", "interlocutor": "Claire", "previous": "Do you need anything?", "state": "activación", "phrase": "I'm cold, can you bring another blanket?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "02:00", "interlocutor": "Claire", "previous": "I heard you, is everything okay?", "state": "activación", "phrase": "My back hurts, call the nurse"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "08:00", "interlocutor": "Rosa", "previous": "Good morning, love. Did you sleep well?", "state": "calma", "phrase": "I slept badly, I woke up several times"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "08:00", "interlocutor": "Rosa", "previous": "Shall I bring you breakfast?", "state": "calma", "phrase": "Yes, a coffee with milk, please"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "08:10", "interlocutor": "Rosa", "previous": "Here are your pills.", "state": "calma", "phrase": "Thanks, can I have some water?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "11:00", "interlocutor": "Marta", "previous": "Hi Lucas, shall we start the exercises?", "state": "calma", "phrase": "I'm a bit tired today, let's go slowly"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "11:30", "interlocutor": "Marta", "previous": "How does your throat feel?", "state": "calma", "phrase": "Swallowing is harder than last week"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "12:00", "interlocutor": "Javier", "previous": "Hi Dad! How are you?", "state": "calma", "phrase": "Good, son. When are you coming to see me?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "14:00", "interlocutor": "Rosa", "previous": "Are you hungry?", "state": "calma", "phrase": "A little, what's for lunch?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "14:30", "interlocutor": "Rosa", "previous": "Are you comfortable like this?", "state": "activación", "phrase": "My back hurts, change my position"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "15:00", "interlocutor": "Rosa", "previous": "Shall I put on some music?", "state": "calma", "phrase": "Put on some flamenco"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "16:00", "interlocutor": "Rosa", "previous": "Do you want to rest for a while?", "state": "calma", "phrase": "Yes, lower the blinds, please"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "18:00", "interlocutor": "Ana", "previous": "Hi Dad! How was your day?", "state": "calma", "phrase": "Good, a bit tired. And you?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "18:05", "interlocutor": "Ana", "previous": "Ugh, lots of work, as always.", "state": "calma", "phrase": "How is work going?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "18:10", "interlocutor": "Ana", "previous": "The kids send you kisses.", "state": "calma", "phrase": "How are Pablo and Lola?"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "18:20", "interlocutor": "Ana", "previous": "Do you want to watch something on TV?", "state": "calma", "phrase": "Put the Betis match on"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "18:50", "interlocutor": "Ana", "previous": "I have to go now, Dad.", "state": "calma", "phrase": "Thanks for coming, I love you"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "21:00", "interlocutor": "Rosa", "previous": "Shall we have dinner?", "state": "calma", "phrase": "Yes, but something light"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "23:00", "interlocutor": "Claire", "previous": "Good evening Lucas, how are you?", "state": "calma", "phrase": "I'm fine, thanks"}
+{"user_id": "lucas", "date": "2026-10-02", "time": "23:05", "interlocutor": "Claire", "previous": "Do you need anything?", "state": "activación", "phrase": "I'm cold, can you bring another blanket?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "02:00", "interlocutor": "Claire", "previous": "I heard you, is everything okay?", "state": "activación", "phrase": "My back hurts, call the nurse"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "08:00", "interlocutor": "Rosa", "previous": "Good morning, love. Did you sleep well?", "state": "calma", "phrase": "I slept badly, I woke up several times"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "08:00", "interlocutor": "Rosa", "previous": "Shall I bring you breakfast?", "state": "calma", "phrase": "Yes, a coffee with milk, please"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "08:10", "interlocutor": "Rosa", "previous": "Here are your pills.", "state": "calma", "phrase": "Thanks, can I have some water?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "11:00", "interlocutor": "Marta", "previous": "Hi Lucas, shall we start the exercises?", "state": "calma", "phrase": "I'm a bit tired today, let's go slowly"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "11:30", "interlocutor": "Marta", "previous": "How does your throat feel?", "state": "calma", "phrase": "Swallowing is harder than last week"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "11:40", "interlocutor": "Marta", "previous": "You did really well today.", "state": "calma", "phrase": "Thanks, you help me a lot"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "12:00", "interlocutor": "Javier", "previous": "Hi Dad! How are you?", "state": "calma", "phrase": "Good, son. When are you coming to see me?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "14:00", "interlocutor": "Rosa", "previous": "Are you hungry?", "state": "calma", "phrase": "A little, what's for lunch?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "14:30", "interlocutor": "Rosa", "previous": "Are you comfortable like this?", "state": "activación", "phrase": "My back hurts, change my position"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "16:00", "interlocutor": "Rosa", "previous": "Do you want to rest for a while?", "state": "calma", "phrase": "Yes, lower the blinds, please"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "18:00", "interlocutor": "Ana", "previous": "Hi Dad! How was your day?", "state": "calma", "phrase": "Good, a bit tired. And you?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "18:05", "interlocutor": "Ana", "previous": "Ugh, lots of work, as always.", "state": "calma", "phrase": "How is work going?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "18:10", "interlocutor": "Ana", "previous": "The kids send you kisses.", "state": "calma", "phrase": "How are Pablo and Lola?"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "18:50", "interlocutor": "Ana", "previous": "I have to go now, Dad.", "state": "calma", "phrase": "Thanks for coming, I love you"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "21:00", "interlocutor": "Rosa", "previous": "Shall we have dinner?", "state": "calma", "phrase": "Yes, but something light"}
+{"user_id": "lucas", "date": "2026-10-03", "time": "23:05", "interlocutor": "Claire", "previous": "Do you need anything?", "state": "activación", "phrase": "I'm cold, can you bring another blanket?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "02:00", "interlocutor": "Claire", "previous": "I heard you, is everything okay?", "state": "activación", "phrase": "My back hurts, call the nurse"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "08:00", "interlocutor": "Rosa", "previous": "Good morning, love. Did you sleep well?", "state": "calma", "phrase": "I slept badly, I woke up several times"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "08:10", "interlocutor": "Rosa", "previous": "Here are your pills.", "state": "calma", "phrase": "Thanks, can I have some water?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "11:00", "interlocutor": "Marta", "previous": "Hi Lucas, shall we start the exercises?", "state": "calma", "phrase": "I'm a bit tired today, let's go slowly"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "11:30", "interlocutor": "Marta", "previous": "How does your throat feel?", "state": "calma", "phrase": "Swallowing is harder than last week"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "12:00", "interlocutor": "Javier", "previous": "Hi Dad! How are you?", "state": "calma", "phrase": "Good, son. When are you coming to see me?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "14:30", "interlocutor": "Rosa", "previous": "Are you comfortable like this?", "state": "activación", "phrase": "My back hurts, change my position"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "16:00", "interlocutor": "Rosa", "previous": "Do you want to rest for a while?", "state": "calma", "phrase": "Yes, lower the blinds, please"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:00", "interlocutor": "Ana", "previous": "Hi Dad! How was your day?", "state": "calma", "phrase": "Good, a bit tired. And you?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:05", "interlocutor": "Ana", "previous": "Ugh, lots of work, as always.", "state": "calma", "phrase": "How is work going?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:10", "interlocutor": "Ana", "previous": "The kids send you kisses.", "state": "calma", "phrase": "How are Pablo and Lola?"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:20", "interlocutor": "Ana", "previous": "Do you want to watch something on TV?", "state": "calma", "phrase": "Put the Betis match on"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:40", "interlocutor": "Ana", "previous": "I can't come tomorrow.", "state": "calma", "phrase": "No worries, come when you can"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "18:50", "interlocutor": "Ana", "previous": "I have to go now, Dad.", "state": "calma", "phrase": "Thanks for coming, I love you"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "21:00", "interlocutor": "Rosa", "previous": "Shall we have dinner?", "state": "calma", "phrase": "Yes, but something light"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "23:00", "interlocutor": "Claire", "previous": "Good evening Lucas, how are you?", "state": "calma", "phrase": "I'm fine, thanks"}
+{"user_id": "lucas", "date": "2026-10-04", "time": "23:05", "interlocutor": "Claire", "previous": "Do you need anything?", "state": "activación", "phrase": "I'm cold, can you bring another blanket?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "02:00", "interlocutor": "Claire", "previous": "I heard you, is everything okay?", "state": "activación", "phrase": "My back hurts, call the nurse"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "08:00", "interlocutor": "Rosa", "previous": "Shall I bring you breakfast?", "state": "calma", "phrase": "Yes, a coffee with milk, please"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "08:10", "interlocutor": "Rosa", "previous": "Here are your pills.", "state": "calma", "phrase": "Thanks, can I have some water?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "08:20", "interlocutor": "Rosa", "previous": "Your brother is coming today.", "state": "calma", "phrase": "How lovely, I haven't seen him in ages"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "11:00", "interlocutor": "Marta", "previous": "Hi Lucas, shall we start the exercises?", "state": "calma", "phrase": "I'm a bit tired today, let's go slowly"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "11:30", "interlocutor": "Marta", "previous": "How does your throat feel?", "state": "calma", "phrase": "Swallowing is harder than last week"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "12:00", "interlocutor": "Javier", "previous": "Hi Dad! How are you?", "state": "calma", "phrase": "Good, son. When are you coming to see me?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "14:00", "interlocutor": "Rosa", "previous": "Are you hungry?", "state": "calma", "phrase": "A little, what's for lunch?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "14:30", "interlocutor": "Rosa", "previous": "Are you comfortable like this?", "state": "activación", "phrase": "My back hurts, change my position"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "18:00", "interlocutor": "Ana", "previous": "Hi Dad! How was your day?", "state": "calma", "phrase": "Good, a bit tired. And you?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "18:05", "interlocutor": "Ana", "previous": "Ugh, lots of work, as always.", "state": "calma", "phrase": "How is work going?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "18:10", "interlocutor": "Ana", "previous": "The kids send you kisses.", "state": "calma", "phrase": "How are Pablo and Lola?"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "18:20", "interlocutor": "Ana", "previous": "Do you want to watch something on TV?", "state": "calma", "phrase": "Put the Betis match on"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "18:50", "interlocutor": "Ana", "previous": "I have to go now, Dad.", "state": "calma", "phrase": "Thanks for coming, I love you"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "21:00", "interlocutor": "Rosa", "previous": "Shall we have dinner?", "state": "calma", "phrase": "Yes, but something light"}
+{"user_id": "lucas", "date": "2026-10-05", "time": "23:05", "interlocutor": "Claire", "previous": "Do you need anything?", "state": "activación", "phrase": "I'm cold, can you bring another blanket?"}
