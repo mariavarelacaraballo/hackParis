@@ -41,7 +41,7 @@ def search_memories(user_id: str, query_embedding, initials: str | None = None,
         FROM memories
         WHERE user_id = %(u)s
         ORDER BY
-          (CASE WHEN initials = %(ini)s THEN 0 ELSE 1 END),
+          (CASE WHEN initials = %(ini)s THEN 0 WHEN %(ini)s <> '' AND initials LIKE %(ini)s || '%%' THEN 1 ELSE 2 END),
           (CASE WHEN interlocutor = %(who)s THEN 0 ELSE 1 END),
           (CASE WHEN %(emb)s::vector IS NULL THEN 0 ELSE (embedding <=> %(emb)s::vector) END) - 0.01 * LEAST(times_used, 10)
         LIMIT %(k)s
@@ -56,7 +56,15 @@ def search_memories(user_id: str, query_embedding, initials: str | None = None,
             seen[r["phrase"]]["times_used"] += r["times_used"]
         else:
             seen[r["phrase"]] = r
-    return list(seen.values())[:k]
+    out = list(seen.values())
+    if initials:  # con iniciales, solo recuerdos que encajan (evita que lo más usado, p. ej. 'me duele', lo tape todo)
+        out = [r for r in out if (r.get("phrase") and _ini(r["phrase"]).startswith(initials))]
+    return out[:k]
+
+
+def _ini(phrase):
+    import re
+    return " ".join(w[0] for w in re.findall(r"[\wáéíóúñü]+", phrase.lower()))
 
 
 def upsert_memory(user_id, phrase, initials, interlocutor, state, previous, embedding, source="choice"):
