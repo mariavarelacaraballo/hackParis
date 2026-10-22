@@ -16,6 +16,9 @@ Rules:
 - The wristband (get_state) ONLY decides the tone, NEVER the topic.
 - The 5 sentences must start, word by word, with those initials, in that order. Every word counts
   ("i g t s" → "I'm going to sleep" fits; "I'm really going to sleep" does NOT). Don't copy this example.
+- Answer the LAST thing said ('last_utterance'). Earlier turns are only background: do NOT bring back old topics
+  (e.g. water, the blinds) unless the last message is about them.
+- Infer who is speaking from what they say ("Dad" → his son or daughter; "your pills" → carer). If unknown, use no name.
 - After the initials, the MOST important thing: the sentences must answer or continue the conversation
   (if someone just asked a question, answer it).
 - Use a memory phrase only if its English version fits the initials exactly.

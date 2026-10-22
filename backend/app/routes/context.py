@@ -31,7 +31,7 @@ def set_context(body: ContextIn):
     from ..db import postgres, valkey
 
     profile = postgres.get_profile(body.user_id)
-    who = body.interlocutor or suggest_interlocutor(profile)
+    who = body.interlocutor or "unknown"  # sin perfiles: no adivinamos quién es (antes salía siempre Rosa)
     valkey.set_session(body.user_id, interlocutor=who, last_utterance=body.last_utterance)
     valkey.add_turn(body.user_id, who or "otra persona", body.last_utterance)
     context = {**valkey.get_session(body.user_id), "time": time.strftime("%H:%M"),
