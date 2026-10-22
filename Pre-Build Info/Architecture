@@ -1,0 +1,53 @@
+**Es exactamente ese, y acabas de clavar el argumento ganador del pitch.** 
+
+Si obligaras a un paciente con ELA a buscar y elegir su emoción en una pantalla con la mirada, **estarías destruyendo el propósito del producto**: cada fijación ocular cuesta entre 1 y 2 segundos y fatiga al usuario. 
+
+El verdadero *moat* es **la reducción radical de fricción motora y cognitiva**:
+
+---
+
+### 1. El cálculo que enamora al jurado: KSR (Keystroke Saving Rate)
+
+* **El problema de la competencia (Grid 3, Tobii Dynavox):** Para que una voz suene con emoción hoy, el usuario tendría que escribir la frase, ir a un menú de emociones, seleccionar "enfadado" y darle a reproducir. Son de **3 a 5 pulsaciones de mirada extra** (6 a 10 segundos perdidos).
+* **Vuestra solución con Wearables:**
+  * La pulsera detecta el pico simpático (FC alta + picos de conductancia EDA).
+  * El estado `[molesto]` o `[urgente]` **se preselecciona solo** en segundo plano.
+  * Cuando Lucas mira y elige la frase candidata (*«m d l e» $\to$ «Me duele la espalda»*), **el tono ya va embebido**.
+  * **Coste en pulsaciones añadidas: CERO.**
+
+---
+
+### 2. Los tres pilares que construyen el Moat
+
+Vuestro producto no es solo un wrapper de ElevenLabs; es la convergencia de tres capas que nadie más ha conectado:
+
+```
+[ Iniciales del usuario ] ──┐
+                            ├─► [ Agente + Memoria (pgvector) ] 
+[ Contexto: hora + quién ] ──┤   (Aprende qué suele decir a quién)
+                            │                   │
+[ Wearable WESAD (pulsera) ]─┘                   ▼
+(Autoselecciona estado/arousal)        Frase candidata + Tag
+                                       "[upset] Me duele la espalda"
+                                                │
+                                                ▼
+                                    Usuario confirma con 1 mirada
+                                                │
+                                                ▼
+                                    ElevenLabs v3 (Voz clonada)
+```
+
+1. **SpeakFaster (Google):** Aporta la base científica (expandir iniciales con LLM ahorra hasta un 60 % de tiempo).
+2. **Memoria personal viva (PostgreSQL + pgvector):** Sabe qué le suele decir a su hija Ana por la tarde frente a lo que le dice al médico.
+3. **Señal fisiológica autonómica (Wearable):** Aporta el estado biológico en tiempo real para modular la voz sin requerir trabajo motor al usuario.
+
+---
+
+### 3. La frase definitiva para la slide y el pitch (minuto 1:00–2:00)
+
+> *"Hablar con la mirada a 10 palabras por minuto ya es agotador como para encima tener que elegir cómo te sientes en un menú. La pulsera siente la tensión autonómica, autoselecciona el tono en segundo plano y Lucas solo tiene que confirmar la frase. Una sola mirada dice la frase correcta, con su propia voz y con cómo se siente en ese instante."*
+
+### 4. Blindaje ante la pregunta del jurado: *"¿Y si la pulsera se equivoca?"*
+
+* **Respuesta preparada:**  
+  *«Por diseño ético y de producto, el sistema nunca habla por él ni asume una emoción irreversible. El estado viene preseleccionado como una sugerencia visible; si Lucas quiere hablar en tono neutro, puede cambiarlo con un toque. Pero en las situaciones críticas (dolor, fatiga o urgencia), el sistema ya ha hecho el trabajo por él.»*
