@@ -69,6 +69,9 @@ def expand(user_id: str, mode: str, user_input, context: dict, state: dict, prof
 
     def final(out, why=""):
         cands = list(dict.fromkeys(str(c) for c in out.get("candidates", [])))
+        # No repetir lo que Lucas ya acaba de decir en esta conversación
+        said = {t.get("text", "").strip().lower() for t in (context or {}).get("conversation", []) if t.get("who") == "Lucas"}
+        cands = [c for c in cands if c.strip().lower() not in said] or cands
         if initials:
             good = [c for c in cands if matches(c)]
             cands = good or cands  # si ninguna encaja, mejor algo que nada
