@@ -61,6 +61,25 @@ def get_state(user_id) -> dict:
     return r().hgetall(f"state:{user_id}") or {"activation": "baja", "confidence": "0", "suggested_tone": "neutro"}
 
 
+def add_turn(user_id, who, text, keep=8):
+    """Historial corto de la conversación (últimos turnos) para que el agente responda con coherencia."""
+    if not text:
+        return
+    h = get_history(user_id)
+    if h and h[-1] == {"who": who, "text": text}:
+        return
+    h = (h + [{"who": who, "text": text}])[-keep:]
+    r().set(f"history:{user_id}", json.dumps(h, ensure_ascii=False), ex=7200)
+
+
+def get_history(user_id) -> list:
+    v = r().get(f"history:{user_id}")
+    try:
+        return json.loads(v) if v else []
+    except Exception:
+        return []
+
+
 def cache_get(kind, h):
     v = r().get(f"cache:{kind}:{h}")
     return json.loads(v) if v else None

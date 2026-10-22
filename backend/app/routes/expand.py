@@ -26,9 +26,13 @@ def expand(body: ExpandIn):
     else:
         context = {**valkey.get_session(body.user_id), **given}
         context.setdefault("time", time.strftime("%H:%M"))
+        if given.get("last_utterance"):
+            valkey.add_turn(body.user_id, context.get("interlocutor") or "otra persona", given["last_utterance"])
+        context["conversation"] = valkey.get_history(body.user_id)
         state = valkey.get_state(body.user_id)
 
-    h = valkey.key_hash(body.user_id, body.mode, body.input, context.get("interlocutor"), context.get("last_utterance"))
+    h = valkey.key_hash(body.user_id, body.mode, body.input, context.get("interlocutor"), context.get("last_utterance"),
+                         str(context.get("conversation", [])[-4:]))
     if body.memories is None:
         hit = valkey.cache_get("expand", h)
         if hit:

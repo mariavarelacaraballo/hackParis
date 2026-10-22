@@ -14,4 +14,5 @@ async def listen(audio: UploadFile = File(...), user_id: str = Form("lucas")):
     from ..services.transcribe import transcribe
     text = transcribe(await audio.read(), audio.filename or "audio.webm")
     valkey.set_session(user_id, last_utterance=text)
+    valkey.add_turn(user_id, valkey.get_session(user_id).get("interlocutor") or "otra persona", text)
     return {"text": text}

@@ -15,7 +15,9 @@ Reglas:
 - Las 5 frases deben empezar, palabra a palabra, por esas iniciales y en ese orden.
 - Usa una frase de la memoria SOLO si encaja exactamente con las iniciales; si no, ignórala.
 - Las 5 frases deben ser variadas: intenciones distintas (pregunta, afirmación, petición, emoción, comentario social).
-- Español natural, coloquial, en primera persona, coherente con lo último que le han dicho si lo hay.
+- get_context trae 'conversation' (últimos turnos: quién dijo qué) y 'last_utterance'. Lo MÁS importante después de las iniciales:
+  las frases deben ser una respuesta o continuación lógica de esa conversación (si le preguntan algo, responde a eso).
+- Español natural, coloquial, en primera persona.
 - Solo si la frase trata de algo actual del mundo (fútbol, noticias), usa web_search.
 Tono (suggested_tone) según el significado de la frase y la activación de la pulsera:
   alegría → contento; cansancio → cansado; petición calmada → tranquilo; queja con activación alta → molesto;

@@ -19,6 +19,7 @@ def choice(body: ChoiceIn):
     state = valkey.get_state(body.user_id)
     result = learn_from_choice(body.user_id, final, session.get("interlocutor"), state.get("activation"),
                                session.get("last_utterance"), edited=bool(body.edited_text))
+    valkey.add_turn(body.user_id, "Lucas", final)
     try:
         from ..db import postgres
         postgres.save_choice(body.model_dump())
