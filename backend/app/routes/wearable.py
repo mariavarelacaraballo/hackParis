@@ -18,6 +18,10 @@ def samples(body: SamplesIn):
     if not config.MOCK:
         from ..db import clickhouse, valkey
         valkey.set_state(body.user_id, st)
-        clickhouse.insert_samples([(body.user_id, r["ts"], r["hr"], r["eda"], r["acc"], st["activation"], st["confidence"])
-                                   for r in rows])
+        try:
+            from datetime import datetime
+            clickhouse.insert_samples([(body.user_id, datetime.fromisoformat(r["ts"].replace("Z", "+00:00")), r["hr"], r["eda"],
+                                        r["acc"], st["activation"], float(st["confidence"])) for r in rows])
+        except Exception as e:  # ClickHouse opcional: la demo sigue funcionando sin él
+            print("ClickHouse no disponible:", e)
     return {"ok": True, "state": st}
